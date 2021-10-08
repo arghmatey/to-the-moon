@@ -2,7 +2,7 @@ header {
   position: fixed;
   top: 0;
   display: flex;
-  align-items: center;
+  align-items: baseline;
   padding: {
     left: 2rem;
   }
@@ -11,6 +11,9 @@ header {
 
   nav {
     display: flex;
+    margin: {
+      left: 4rem;
+    }
     gap: 3rem;
 
     .nav-link {
@@ -42,4 +45,38 @@ main {
   height: 200px;
   border-radius: 50%;
   box-shadow: 5px 0 10px 3px #797887, 0 5px 10px 3px #797887;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 252px;
+
+  label {
+    font: {
+      size: 0.875rem;
+    }
+  }
+
+  input {
+    height: 2rem;
+    font: {
+      family: inherit;
+      size: 1rem;
+    }
+    margin: {
+      bottom: 1rem;
+    }
+  }
+
+  button {
+    height: 2rem;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 0.25rem;
+    font: {
+      family: inherit;
+      size: 1rem;
+    }
+  }
 }

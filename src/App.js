@@ -74,7 +74,7 @@ function App() {
           
             <Route exact path="/">
               <section>
-                <div>The moon is {moonMi} miles away</div>
+              <h2>The moon is {moonMi} miles away</h2>
                   <form onSubmit={handleSubmit}>
                     <label htmlFor="steps">How many steps did you take today? </label>
                     <input name="steps" type="text" value={newSteps} onChange={handleChange}/>
