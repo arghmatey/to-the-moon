@@ -3,6 +3,7 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 
+require('dotenv').config();
 require('./config/database');
 
 var app = express();
@@ -14,6 +15,7 @@ app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname)));
 
 // api routes will live here
+app.use('/users', require('./routes/users'));
 
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))

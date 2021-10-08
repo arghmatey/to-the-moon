@@ -1,15 +1,36 @@
-import React, { useState} from 'react';
+import React, { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+  } from 'react-router-dom';
 import data from './milestone_data';
+import userService from './services/userService';
 import './App.css';
+import NavBar from './components/NavBar';
+import Signup from './pages/Signup';
 
 function App() {
+  // initialize user if there's a token, otherwise - null
+  const [user, setUser] = useState(userService.getUser());
+
   const [moonMi, setmoonMi] = useState(238855);
   const [newSteps, setNewSteps] = useState(0);
   const [userMi, setUserMi] = useState(0);
   const [milestone, setMilestone] = useState(0);
 
+  const handleAuth = () => {
+    setUser(userService.getUser());
+  }
+
+  const handleLogout = () => {
+    userService.logout();
+    setUser(null);
+  }
+
   const handleChange = e => {
-    setNewSteps(e.target.value)
+    setNewSteps(e.target.value);
   }
 
   // average stride size is 2.1-2.5 feet long
@@ -39,27 +60,48 @@ function App() {
     }
   }
 
+  useEffect(() => {
+    console.log(user);
+  })
+
   return (
-    <div className="App">
-      <main>
+    <Router>
+      <div className="App">
+        <header>
+          <NavBar
+            user={user}
+            handleLogout={handleLogout}
+          />
+        </header>
 
-        <div className="moon-container">
-          <div className="moon"></div>
-        </div>
+        <main>
+          <div className="moon-container">
+            <div className="moon"></div>
+          </div>
 
-        <div>The moon is {moonMi} miles away</div>
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="steps">How many steps did you take today? </label>
-            <input name="steps" type="text" value={newSteps} onChange={handleChange}/>
-            <input type="submit" value="Submit"/>
-          </form>
-        <div>You're {userMi} miles closer to the moon!</div>
+          
+            <Route exact path="/">
+              <div>The moon is {moonMi} miles away</div>
+                <form onSubmit={handleSubmit}>
+                  <label htmlFor="steps">How many steps did you take today? </label>
+                  <input name="steps" type="text" value={newSteps} onChange={handleChange}/>
+                  <input type="submit" value="Submit"/>
+                </form>
+              <div>You're {userMi} miles closer to the moon!</div>
 
-          <section className="milestone-container">
-            <h3>Current milestone: {data[milestone].name}</h3>
-          </section>
-      </main>
-    </div>
+              <section className="milestone-container">
+                <h3>Current milestone: {data[milestone].name}</h3>
+              </section>
+            </Route>
+
+            <Route path="/signup">
+              <Signup
+                handleAuth={handleAuth}
+              />
+            </Route>
+        </main>
+      </div>
+    </Router>
   );
 }
 
