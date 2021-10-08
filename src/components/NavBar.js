@@ -5,23 +5,30 @@ const NavBar = (props) => {
     let navContent = props.user ?
         <nav>
             <NavLink 
-                to='/' 
+                to="/" 
+                className="nav-link">Home</NavLink>
+            <NavLink 
+                to="/" 
                 onClick={props.handleLogout} 
-                className="neon-nav">Logout</NavLink>
+                className="nav-link">Logout</NavLink>
         </nav>
         :
         <nav>
             <NavLink 
-                to='/login' 
-                className="neon-nav">Login</NavLink>
+                to="/" 
+                className="nav-link">Home</NavLink>
             <NavLink 
-                to='/signup' 
-                className="neon-nav">Signup</NavLink>
+                to="/login" 
+                className="nav-link">Login</NavLink>
+            <NavLink 
+                to="/signup" 
+                className="nav-link">Signup</NavLink>
         </nav>
         ;
 
     return (
         <header>
+            <h1>To the Moon</h1>
             {navContent}
         </header>
     );
