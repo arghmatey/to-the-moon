@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter as Router,
   Route
   } from 'react-router-dom';
 import data from './milestone_data';
 import userService from './services/userService';
-import './App.css';
+import './App.scss';
 import NavBar from './components/NavBar';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
@@ -60,7 +60,7 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="app">
           <NavBar
             user={user}
             handleLogout={handleLogout}
@@ -73,25 +73,27 @@ function App() {
 
           
             <Route exact path="/">
-              <div>The moon is {moonMi} miles away</div>
-                <form onSubmit={handleSubmit}>
-                  <label htmlFor="steps">How many steps did you take today? </label>
-                  <input name="steps" type="text" value={newSteps} onChange={handleChange}/>
-                  <input type="submit" value="Submit"/>
-                </form>
-              <div>You're {userMi} miles closer to the moon!</div>
+              <section>
+                <div>The moon is {moonMi} miles away</div>
+                  <form onSubmit={handleSubmit}>
+                    <label htmlFor="steps">How many steps did you take today? </label>
+                    <input name="steps" type="text" value={newSteps} onChange={handleChange}/>
+                    <input type="submit" value="Submit"/>
+                  </form>
+                <div>You're {userMi} miles closer to the moon!</div>
+              </section>
 
               <section className="milestone-container">
                 <h3>Current milestone: {data[milestone].name}</h3>
               </section>
             </Route>
 
-            <Route path="/signup">
+            <Route exact path="/signup">
               <Signup
                 handleAuth={handleAuth}
               />
             </Route>
-            <Route path="/login">
+            <Route exact path="/login">
               <Login
                 handleAuth={handleAuth}
               />

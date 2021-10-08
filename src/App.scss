@@ -1,0 +1,45 @@
+header {
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  padding: {
+    left: 2rem;
+  }
+  height: 84px;
+  width: 100%;
+
+  nav {
+    display: flex;
+    gap: 3rem;
+
+    .nav-link {
+      text-transform: uppercase;
+      text-decoration: none;
+
+      &:visited {
+        color: rgb(255, 225, 251);
+      }
+    }
+  }
+}
+
+main {
+  padding: 2rem;
+
+  section {
+    margin: {
+      top: 84px;
+    }
+  }
+}
+
+.moon {
+  position: relative;
+  float: right;
+  background-color: lavender;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: 5px 0 10px 3px #797887, 0 5px 10px 3px #797887;
+}
