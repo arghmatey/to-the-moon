@@ -3,20 +3,27 @@ import { NavLink } from 'react-router-dom';
 
 const NavBar = (props) => {
     let navContent = props.user ?
-        <NavLink 
-            to='/' 
-            onClick={props.handleLogout} 
-            className="neon-nav">Logout</NavLink>
+        <nav>
+            <NavLink 
+                to='/' 
+                onClick={props.handleLogout} 
+                className="neon-nav">Logout</NavLink>
+        </nav>
         :
-        <NavLink 
-            to='/signup' 
-            className="neon-nav">Signup</NavLink>
+        <nav>
+            <NavLink 
+                to='/login' 
+                className="neon-nav">Login</NavLink>
+            <NavLink 
+                to='/signup' 
+                className="neon-nav">Signup</NavLink>
+        </nav>
         ;
 
     return (
-        <nav>
+        <header>
             {navContent}
-        </nav>
+        </header>
     );
 };
 

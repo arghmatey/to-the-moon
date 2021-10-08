@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Switch,
   Route,
-  Redirect,
   } from 'react-router-dom';
 import data from './milestone_data';
 import userService from './services/userService';
 import './App.css';
 import NavBar from './components/NavBar';
 import Signup from './pages/Signup';
+import Login from './pages/Login';
 
 function App() {
   // initialize user if there's a token, otherwise - null
@@ -43,7 +42,6 @@ function App() {
   }
 
   const checkMilestone = (miles) => {
-    console.log(miles, data[milestone].end);
     if (miles >= data[milestone].end) {
       setMilestone(milestone + 1)
     };
@@ -59,20 +57,14 @@ function App() {
       setUserMi(convertedMi);
     }
   }
-
-  useEffect(() => {
-    console.log(user);
-  })
-
+  
   return (
     <Router>
       <div className="App">
-        <header>
           <NavBar
             user={user}
             handleLogout={handleLogout}
           />
-        </header>
 
         <main>
           <div className="moon-container">
@@ -96,6 +88,11 @@ function App() {
 
             <Route path="/signup">
               <Signup
+                handleAuth={handleAuth}
+              />
+            </Route>
+            <Route path="/login">
+              <Login
                 handleAuth={handleAuth}
               />
             </Route>
