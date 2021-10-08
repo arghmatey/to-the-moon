@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
-  Route,
+  Route
   } from 'react-router-dom';
 import data from './milestone_data';
 import userService from './services/userService';
@@ -57,7 +57,7 @@ function App() {
       setUserMi(convertedMi);
     }
   }
-  
+
   return (
     <Router>
       <div className="App">

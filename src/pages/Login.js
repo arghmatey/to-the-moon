@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import userService from '../services/userService';
 
 const Login = (props) => {
@@ -8,6 +9,7 @@ const Login = (props) => {
             password: ''
         }
     );
+    let history = useHistory()
 
     const handleChange = e => {
         setFormData({...formData, [e.target.id]: e.target.value});
@@ -19,7 +21,7 @@ const Login = (props) => {
             await userService.login(formData);
             console.log('this far')
             props.handleAuth();
-            props.history.push('/');
+            history.push('/');
         } catch (err) {
             console.log(err)
         }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import userService from '../services/userService';
 
 const Signup = (props) => {
@@ -12,6 +13,8 @@ const Signup = (props) => {
         }
     );
 
+    let history = useHistory();
+
     const handleChange = e => {
         setFormData({...formData, [e.target.id]: e.target.value});
     }
@@ -21,7 +24,7 @@ const Signup = (props) => {
         try {
             await userService.signup(formData);
             props.handleAuth();
-            props.history.push('/');
+            history.push('/');
         } catch (err) {
             console.log("Update to include error message.")
         }
