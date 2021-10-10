@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const SALT_ROUNDS = 9;
 
+const stepsLogSchema = new Schema({
+    steps: Number
+});
+
 const userSchema = new Schema({
     firstName: {
         type: String,
@@ -19,7 +23,13 @@ const userSchema = new Schema({
         lowercase: true,
         unique: true
     },
-    password: String
+    password: String,
+    totalSteps: {
+        type: Number,
+        default: 0
+    },
+    stepsLog: [stepsLogSchema],
+    currentMilestone: Number
 }, {
     timestamps: true
 });
