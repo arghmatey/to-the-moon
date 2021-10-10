@@ -7,6 +7,7 @@ var milestone_data = [
     {'name': 'Kármán line', 'end': 62, blurb: ''},
     {'name': 'Thermosephere', 'end': 372, blurb: ''},
     {'name': 'Exosphere', 'end': 6200, blurb: ''},
+    {'name': 'Moon', 'end': 238855, blurb: ''}
 ]
 
 export default milestone_data;
