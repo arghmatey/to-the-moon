@@ -29,9 +29,11 @@ function removeToken() {
     localStorage.removeItem('token');
 }
 
-export default {
+const services = {
     setToken,
     getToken,
     getUserFromToken,
     removeToken
 };
+
+export default services;

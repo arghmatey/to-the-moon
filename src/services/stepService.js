@@ -2,7 +2,7 @@ import tokenService from "./tokenService";
 
 const baseUrl = "/steps";
 
-export function add(steps) {
+function add(steps) {
     return fetch(baseUrl, {
         method: "POST",
         headers: {
@@ -13,6 +13,13 @@ export function add(steps) {
     }).then(res => res.json());
 }
 
-export default {
-    add
+function getSteps() {
+    return fetch(baseUrl).then(res => res.json());
 }
+
+const services =  {
+    add,
+    getSteps
+};
+
+export default services;
