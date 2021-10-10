@@ -19,7 +19,6 @@ const Login = (props) => {
         e.preventDefault();
         try {
             await userService.login(formData);
-            console.log('this far')
             props.handleAuth();
             history.push('/');
         } catch (err) {

@@ -16,7 +16,6 @@ function getToken() {
             localStorage.removeItem('token');
             token = null;
         }
-        console.log(payload)
     }
     return token;
 }
