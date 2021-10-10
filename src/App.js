@@ -3,10 +3,12 @@ import {
   BrowserRouter as Router,
   Route
   } from 'react-router-dom';
+import './App.scss';
 import data from './milestone_data';
 import userService from './services/userService';
-import './App.scss';
+import stepService from './services/stepService';
 import NavBar from './components/NavBar';
+import StepForm from './components/StepForm';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 
@@ -15,8 +17,7 @@ function App() {
   const [user, setUser] = useState(userService.getUser());
 
   const [moonMi, setmoonMi] = useState(238855);
-  const [newSteps, setNewSteps] = useState(0);
-  const [userMi, setUserMi] = useState(0);
+  const [userSteps, setUserSteps] = useState(0);
   const [milestone, setMilestone] = useState(0);
 
   const handleAuth = () => {
@@ -28,34 +29,26 @@ function App() {
     setUser(null);
   }
 
-  const handleChange = e => {
-    setNewSteps(e.target.value);
-  }
-
-  // average stride size is 2.1-2.5 feet long
-  //    icebox feature: stride based on height
-  //    for now: taking from the middle and settling on 2.3
-  // how many feet in a mile you ask? 5280
+  // average stride size is 2.1-2.5 feet long & a mile is 5280 feet
   // for MVP - all mile entries are rounded to two decimal points
   const convertToMile = steps => {
-    return (steps * 2.3 / 5280).toFixed(2);
+    return +(steps * 2.3 / 5280).toFixed(2);
   }
 
-  const checkMilestone = (miles) => {
-    if (miles >= data[milestone].end) {
+  const convertToSteps = miles => {
+    return +(miles * 5280 / 2.3).toFixed(2);
+  }
+
+  const checkMilestone = steps => {
+    const convertedMi = convertToMile(steps);
+    if (convertedMi >= data[milestone].end) {
       setMilestone(milestone + 1)
     };
   }
 
-  const handleSubmit = async e => {
-    e.preventDefault()
-    if (!Number(newSteps)) {
-      alert('Please enter a valid number! :)');
-    } else {
-      const convertedMi = convertToMile(newSteps) + userMi;
-      checkMilestone(convertedMi);
-      setUserMi(convertedMi);
-    }
+  const handleAddSteps = async steps => {
+    const updatedUser = await stepService.add(steps);
+    setUserSteps(updatedUser.totalSteps);
   }
 
   return (
@@ -74,13 +67,14 @@ function App() {
           
             <Route exact path="/">
               <section>
-              <h2>The moon is {moonMi} miles away</h2>
-                  <form onSubmit={handleSubmit}>
-                    <label htmlFor="steps">How many steps did you take today? </label>
-                    <input name="steps" type="text" value={newSteps} onChange={handleChange}/>
-                    <input type="submit" value="Submit"/>
-                  </form>
-                <div>You're {userMi} miles closer to the moon!</div>
+              <h2>The moon is {moonMi.toLocaleString()} miles away.</h2>
+              <h3>That's only {convertToSteps(moonMi).toLocaleString()} steps!</h3>
+
+              <StepForm 
+                handleAddSteps={handleAddSteps}
+              />
+
+              <div>You're {userSteps.toLocaleString()} steps closer to the moon!</div>
               </section>
 
               <section className="milestone-container">
