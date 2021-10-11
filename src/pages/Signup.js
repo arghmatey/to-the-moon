@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import userService from '../services/userService';
+import authService from '../services/authService';
 
 const Signup = (props) => {
     const [formData, setFormData] = useState(
@@ -22,7 +22,7 @@ const Signup = (props) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await userService.signup(formData);
+            await authService.signup(formData);
             props.handleAuth();
             history.push('/');
         } catch (err) {
