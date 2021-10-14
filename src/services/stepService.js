@@ -1,6 +1,6 @@
 import tokenService from "./tokenService";
 
-const baseUrl = "/users";
+const baseUrl = "/steps";
 
 function add(steps) {
     return fetch(baseUrl, {
@@ -13,8 +13,13 @@ function add(steps) {
     }).then(res => res.json());
 }
 
+function getSteps() {
+    return fetch(baseUrl).then(res => res.json());
+}
+
 const services =  {
-    add
+    add,
+    getSteps
 };
 
 export default services;

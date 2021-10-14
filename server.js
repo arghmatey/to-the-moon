@@ -15,9 +15,9 @@ app.use(favicon(path.join(__dirname, 'build', 'favicon.ico')));
 app.use(express.static(path.join(__dirname)));
 
 // api routes will live here
-app.use('/auth', require('./routes/auth'));
-app.use(require('./config/auth'));
 app.use('/users', require('./routes/users'));
+app.use(require('./config/auth'));
+app.use('/steps', require('./routes/steps'));
 
 app.get('/*', function(req, res) {
     res.sendFile(path.join(__dirname, 'build', 'index.html'))
