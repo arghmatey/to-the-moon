@@ -16,7 +16,7 @@ function App() {
   // initialize user if there's a token, otherwise - null
   const [user, setUser] = useState(userService.getUser());
 
-  const [moonMi, setmoonMi] = useState(238855);
+  const [goal] = useState(data[data.length -1]);
   const [userSteps, setUserSteps] = useState(0);
   const [milestone, setMilestone] = useState(0);
 
@@ -67,19 +67,23 @@ function App() {
           
             <Route exact path="/">
               <section>
-              <h2>The moon is {moonMi.toLocaleString()} miles away.</h2>
-              <h3>That's only {convertToSteps(moonMi).toLocaleString()} steps!</h3>
+              <h2>The {goal.name} is {goal.end.toLocaleString()} miles away.</h2>
+              <h3>That's only {convertToSteps(goal.end).toLocaleString()} steps!</h3>
 
               <StepForm 
                 handleAddSteps={handleAddSteps}
               />
-
-              <div>You're {userSteps.toLocaleString()} steps closer to the moon!</div>
               </section>
 
-              <section className="milestone-container">
-                <h3>Current milestone: {data[milestone].name}</h3>
-              </section>
+              {user ?
+                <section className="milestone-container">
+                  <div>You're {user.totalSteps.toLocaleString()} steps closer to the moon!</div>
+                </section>
+              :
+                <section className="milestone-container">
+                  <div>Signup to track your progress.</div>
+                </section>
+              }
             </Route>
 
             <Route exact path="/signup">
