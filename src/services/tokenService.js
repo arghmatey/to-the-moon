@@ -20,20 +20,9 @@ function getToken() {
     return token;
 }
 
-function getUserFromToken() {
-    const token = getToken();
-    return token ? JSON.parse(window.atob(token.split('.')[1])).user : null;
-}
-
-function removeToken() {
-    localStorage.removeItem('token');
-}
-
 const services = {
     setToken,
-    getToken,
-    getUserFromToken,
-    removeToken
+    getToken
 };
 
 export default services;

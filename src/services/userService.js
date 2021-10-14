@@ -16,11 +16,12 @@ function signup(user) {
 }
 
 function getUser() {
-    return tokenService.getUserFromToken();
+    const token = tokenService.getToken();
+    return token ? JSON.parse(window.atob(token.split('.')[1])).user : null;
 }
 
 function logout() {
-    tokenService.removeToken();
+    localStorage.removeItem('token');
 }
 
 function login(creds) {
