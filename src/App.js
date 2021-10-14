@@ -67,14 +67,20 @@ function App() {
           
             <Route exact path="/">
               <section>
-              <h2>The {goal.name} is {goal.end.toLocaleString()} miles away.</h2>
-              <h3>That's only {convertToSteps(goal.end).toLocaleString()} steps!</h3>
+                <h2>The {goal.name} is {goal.end.toLocaleString()} miles away.</h2>
+                <h3>That's only {convertToSteps(goal.end).toLocaleString()} steps!</h3>
 
-              <StepForm 
-                handleAddSteps={handleAddSteps}
-              />
+                <StepForm 
+                  handleAddSteps={handleAddSteps}
+                />
+
+                <div>You're {userSteps.toLocaleString()} steps closer to the moon!</div>
               </section>
 
+              <section className="milestone-container">
+                <h3>Current milestone: {data[milestone].name}</h3>
+              </section>
+              
               {user ?
                 <section className="milestone-container">
                   <div>You're {user.totalSteps.toLocaleString()} steps closer to the moon!</div>
