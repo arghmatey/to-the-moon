@@ -21,11 +21,13 @@ const StepForm = (props) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="steps">How many steps did you take today? </label>
-            <input name="steps" id="steps" type="number" min="0" onChange={handleChange}/>
-            <button type="submit">Submit</button>
-        </form>
+        <section>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="steps">How many steps did you take today? </label>
+                <input name="steps" id="steps" type="number" min="0" onChange={handleChange}/>
+                <button type="submit">Submit</button>
+            </form>
+        </section>
     )
 }
 
