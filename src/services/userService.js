@@ -2,6 +2,12 @@ import tokenService from './tokenService';
 
 const baseUrl = '/users';
 
+
+function getUser() {
+    const user = tokenService.getUserFromToken();
+    return fetch(`${baseUrl}/${user._id}`).then(res => res.json());
+}
+
 function signup(user) {
     return fetch(`${baseUrl}/signup`, {
         method: 'POST',
@@ -13,11 +19,6 @@ function signup(user) {
         throw new Error('Email already taken!');
     })
     .then(({ token }) => { tokenService.setToken(token) });
-}
-
-function getUser() {
-    const token = tokenService.getToken();
-    return token ? JSON.parse(window.atob(token.split('.')[1])).user : null;
 }
 
 function logout() {
@@ -39,8 +40,8 @@ function login(creds) {
 }
 
 const services =  {
-    signup,
     getUser,
+    signup,
     logout,
     login
 };

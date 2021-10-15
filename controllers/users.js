@@ -2,6 +2,11 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET;
 
+async function getUser(req, res) {
+    const user = await User.findById(req.params.id);
+    res.status(200).json(user);
+}
+
 async function signup(req, res) {
     const user = new User(req.body);
     try {
@@ -39,6 +44,7 @@ function createJWT(user) {
 }
 
 module.exports = {
+    getUser,
     signup,
     login
 }

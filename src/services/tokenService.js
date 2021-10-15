@@ -20,9 +20,15 @@ function getToken() {
     return token;
 }
 
+function getUserFromToken() {
+    const token = getToken();
+    return token ? JSON.parse(window.atob(token.split('.')[1])).user : null;
+}
+
 const services = {
     setToken,
-    getToken
+    getToken,
+    getUserFromToken
 };
 
 export default services;
