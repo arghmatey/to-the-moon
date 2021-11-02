@@ -15,9 +15,10 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 
 function App() {
+  const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(tokenService.getUserFromToken());
   const [steps, setSteps] = useState();
-  const [goal] = useState(data[data.length -1]);
+  const [goal] = useState(data[data.length - 1]);
 
   const handleAuth = () => {
     setUser(userService.getUser());
@@ -36,12 +37,14 @@ function App() {
 
   useEffect(() => {
     if (user) {
+      setLoading(true);
       async function getUserSteps() {
         const user = await userService.getUser();
         setSteps(user.totalSteps.toLocaleString());
       };
 
       getUserSteps();
+      setLoading(false);
     }
   }, [user])
 
@@ -60,18 +63,26 @@ function App() {
 
           
             <Route exact path="/">
-              <section>
-                <h2>The {goal.name} is {goal.end.toLocaleString()} miles away.</h2>
-                <h3>That's only {convertToSteps(goal.end).toLocaleString()} steps!</h3>
-              </section>
+              {loading ? 
+                <section>
+                  <h2>Loading</h2>
+                </section>
+                :
+                <>
+                  <section>
+                    <h2>The {goal.name} is {goal.end.toLocaleString()} miles away.</h2>
+                    <h3>That's only {convertToSteps(goal.end).toLocaleString()} steps!</h3>
+                  </section>
 
-              <StepForm 
-                handleAddSteps={handleAddSteps}
-              />
-              <Progress
-                user={user}
-                steps={steps}
-              />
+                  <StepForm 
+                    handleAddSteps={handleAddSteps}
+                  />
+                  <Progress
+                    user={user}
+                    steps={steps}
+                  />
+                </>
+              }
             </Route>
 
             <Route exact path="/signup">
