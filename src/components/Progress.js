@@ -7,7 +7,7 @@ const StepForm = ({user, steps}) => {
             {user ?
                 <div>You're {steps} steps closer to the moon!</div>
             :
-                <div>Signup or login to track your progress.</div>
+                <div>You've gotten {steps} closer to the moon. Signup or login to track your progress.</div>
             }
         </section>
     )

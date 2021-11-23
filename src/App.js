@@ -30,9 +30,13 @@ function App() {
     return +(miles * 5280 / 2.3).toFixed(2);
   }
 
-  const handleAddSteps = async steps => {
-    const updatedUser = await stepService.add(steps);
-    setSteps(updatedUser.totalSteps.toLocaleString());
+  const handleAddSteps = async data => {
+    if (user) {
+      const updatedUser = await stepService.add(data);
+      setSteps(updatedUser.totalSteps.toLocaleString());
+    } else {
+      setSteps(steps + data.steps);
+    }
   }
 
   useEffect(() => {
@@ -75,6 +79,7 @@ function App() {
                   </section>
 
                   <StepForm 
+                    user={user}
                     handleAddSteps={handleAddSteps}
                   />
                   <Progress
